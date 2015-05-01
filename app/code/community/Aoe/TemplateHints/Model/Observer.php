@@ -71,8 +71,10 @@ class Aoe_TemplateHints_Model_Observer {
         }
         return $this->renderer;
     }
-
-
+    
+    public function core_block_abstract_to_html_before(Varien_Event_Observer $params) {
+        $params->getBlock()->setAoeTemplateHintsProecssingStart(microtime(true));
+    }
 
     /**
      * Event core_block_abstract_to_html_after
@@ -106,12 +108,11 @@ class Aoe_TemplateHints_Model_Observer {
             $this->afterHead = true;
         }
 
-        $transport = $params->getTransport();
+        $transport = $params->getTransport();        
 
         $this->hintId++;
 
         $wrappedHtml .= $this->getRenderer()->render($block, $transport->getHtml(), $this->hintId);
-
         $transport->setHtml($wrappedHtml);
     }
 

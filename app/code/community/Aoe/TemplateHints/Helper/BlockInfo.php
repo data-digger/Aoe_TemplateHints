@@ -34,7 +34,8 @@ class Aoe_TemplateHints_Helper_BlockInfo extends Mage_Core_Helper_Abstract {
             return $info;
         }
 
-        $info['class'] = get_class($block);
+        $info['class'] = get_class($block);        
+        $info['time'] = (microtime(true) - $block->getAoeTemplateHintsProecssingStart());
 
         if ($this->getRemoteCallEnabled()) {
             $fileAndLine = Mage::helper('aoe_templatehints/classInfo')->findFileAndLine($info['class']);
